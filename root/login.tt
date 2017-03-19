@@ -1,0 +1,22 @@
+<div class="container">
+<form method="post" class="" action="[%c.uri_for(c.controller('login').action_for('submit')) %]">
+    <h2 class="">Sign In</h2>
+
+
+    [% IF c.flash.error_msg -%]
+    <div class="alert alert-danger fade in">
+        [% c.flash.error_msg %]
+    </div>
+    [% END -%]
+
+    <div class="form-group">
+    <label for="inputEmail" class="">Email address</label>
+    <input name="email" type="email" id="inputEmail" class="" placeholder="Email address" autofocus>
+    </div>
+    <div class="form-group">
+    <label for="password" class="">Password</label>
+    <input name="password" type="password" id="inputPassword" class="" placeholder="Password">
+    </div>
+    <button class="btn btn-primary" type="submit">Sign in</button>
+</form>
+</div>

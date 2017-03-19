@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>[% page.title || "CatalystBlog" %]</title>
+
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/blog.css" rel="stylesheet">
+</head>
+
+
+<body>
+<div class="page-header">
+<h2> Welcome To My Blog </h2>
+</div>
+
+<div class="container">
+
+[% content %]
+
+</div>
+
+<footer>
+<p>
+Created By Walid Ahmed
+</p>
+</footer>
+
+<script src="/static/js/jquery-2.0.3.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+
+</body>
+</html>

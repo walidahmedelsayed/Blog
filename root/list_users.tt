@@ -1,0 +1,27 @@
+<div class="container">
+
+<div>
+[% IF c.flash.error_msg -%]
+        <div class="alert alert-danger fade in">
+            [% c.flash.error_msg %]
+        </div>
+    [% END -%]
+</div>
+
+<table class="table">
+<tr><th text-align: center>Name</th><th text-align: center>Email</th><th text-align: center>Actions</th></tr>
+[% FOREACH user IN users -%]
+
+<tr>
+<td>[% user.name %]</td>
+<td>[% user.email %]</td>
+<td>
+<a href="[%c.uri_for(c.controller('users').action_for('edit'),user.id) %]">Edit</a> ||
+<a href="[%c.uri_for(c.controller('users').action_for('delete'),user.id) %]">Delete</a>
+</td>
+</tr>
+[% END -%]
+</table>
+
+</div>
+</div>
