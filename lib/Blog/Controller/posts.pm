@@ -23,12 +23,17 @@ Catalyst Controller.
 
 sub base :Chained('/') :PathPart('posts') :CaptureArgs(0) {
     my ($self, $c) = @_;
-    $c->stash(resultset => $c->model('DB::Post'));
+    if($c->user_exists()){
+    $c->stash(resultset => $c->model('DB::Post'));}
+    else {
+      $c->response->redirect($c->uri_for("/login"));
+    }
 }
 
 sub list :Chained('base') :PathPart("list") :Args(0) {
     my ($self, $c) = @_;
-    $c->stash(posts => [$c->model('DB::Post')->all()]);
+#    $c->stash(posts => [$c->model('DB::Post')->all()]);
+    $c->stash(posts => [$c->model('DB::Post')->search({},{ order_by => 'id DESC' })]);
     $c->stash(users => [$c->model('DB::User')->all()]);
     $c->stash(template => "list.tt");
 }

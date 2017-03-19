@@ -23,7 +23,11 @@ Catalyst Controller.
 
 sub base :Chained('/') :PathPart('users') :CaptureArgs(0) {
     my ($self, $c) = @_;
-    $c->stash(resultset => $c->model('DB::User'));
+     if($c->user_exists()){
+    $c->stash(resultset => $c->model('DB::User'));}
+     else {
+          $c->response->redirect($c->uri_for("/login"));
+        }
 }
 
 sub list :Chained('base') :PathPart("list") :Args(0) {

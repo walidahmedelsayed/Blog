@@ -30,10 +30,11 @@ The root page (/)
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
-
-    # Hello World
-#    $c->response->body( $c->welcome_message );
-$c->response->redirect($c->uri_for($c->controller('posts')->action_for("list")));
+     if($c->user_exists()){
+$c->response->redirect($c->uri_for($c->controller('posts')->action_for("list")));}
+ else {
+      $c->response->redirect($c->uri_for("/login"));
+    }
 }
 
 =head2 default
