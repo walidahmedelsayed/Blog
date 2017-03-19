@@ -32,8 +32,9 @@ sub base :Chained('/') :PathPart('posts') :CaptureArgs(0) {
 
 sub list :Chained('base') :PathPart("list") :Args(0) {
     my ($self, $c) = @_;
-#    $c->stash(posts => [$c->model('DB::Post')->all()]);
+
     $c->stash(posts => [$c->model('DB::Post')->search({},{ order_by => 'id DESC' })]);
+    $c->stash(comments => [$c->model('DB::Comment')->all()]);
     $c->stash(users => [$c->model('DB::User')->all()]);
     $c->stash(template => "list.tt");
 }

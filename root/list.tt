@@ -1,55 +1,90 @@
 <div class="container" style="width: 100%; overflow: hidden;">
-<div style="width: 600px; float: left;">
+    <div style="width: 600px; float: left;">
 
 
-<div>
-<a href="[%c.uri_for(c.controller('users').action_for('edit_profile'),c.user.id) %]"> Edit Profile</a> ||
-[% IF c.user.id==1 -%]
-<a href="[%c.uri_for(c.controller('users').action_for('list')) %]"> Edit Users</a> ||
-[% END -%]
-<a href="[%c.uri_for(c.controller('logout').action_for('index')) %]"> Logout</a>
-</div>
-
-<div>
-[% FOREACH post IN posts -%]
-
-<div class="panel panel-default">
-
-<div class="panel-heading">[% post.title %] posted by <span>[% FOREACH user IN users -%][% IF user.id==post.user_id -%][% user.name %][% END -%][% END -%]</span> </div>
-
-<div class="panel-body"><p>[% post.content %]</p><h6>[% post.created_at %]</h6></div>
-[% IF c.user.id==1 || c.user.id==post.user_id -%]
-<div class="panel-footer">
-<a href="[%c.uri_for(c.controller('posts').action_for('edit'),post.id) %]">Edit</a>
-<a href="[%c.uri_for(c.controller('posts').action_for('delete'),post.id) %]">Delete</a>
-</div>
-[% END -%]
-
-</div>
-<hr>
-
-[% END -%]
-
-</div>
-
-</div>
-
-<div style="margin-left: 620px;">
-<form method="post" class="" action="[%c.uri_for(c.controller('posts').action_for('create_post')) %]">
-[% IF c.flash.error_msg -%]
-        <div class="alert alert-danger fade in">
-            [% c.flash.error_msg %]
+        <div>
+            <a href="[%c.uri_for(c.controller('users').action_for('edit_profile'),c.user.id) %]"> Edit Profile</a> ||
+            [% IF c.user.id==1 -%]
+            <a href="[%c.uri_for(c.controller('users').action_for('list')) %]"> Edit Users</a> ||
+            [% END -%]
+            <a href="[%c.uri_for(c.controller('logout').action_for('index')) %]"> Logout</a>
         </div>
-    [% END -%]
-     <div class="form-group">
-<label for="title">Title</label>
-<input type="text" class="form-control" name="title">
-</div>
- <div class="form-group">
-<label for="content">Content</label>
-<textarea class="form-control" name="content"></textarea>
-</div>
-<button class="btn btn-primary">Add Post</button>
-</form>
-</div>
+
+        <div>
+            [% FOREACH post IN posts -%]
+
+            <div class="panel panel-default">
+
+                <div class="panel-heading"><label>[% post.title %]</label> posted by <span>[% FOREACH user IN users -%][% IF user.id==post.user_id -%][% user.name %][% END -%][% END -%]</span>
+                </div>
+
+                <div class="panel-body"><p>[% post.content %]</p><h6>[% post.created_at %]</h6></div>
+
+                [% IF c.user.id==1 || c.user.id==post.user_id -%]
+                <div class="panel-footer">
+                    <a href="[%c.uri_for(c.controller('posts').action_for('edit'),post.id) %]">Edit Post</a> ||
+                    <a href="[%c.uri_for(c.controller('posts').action_for('delete'),post.id) %]">Delete Post</a>
+                </div>
+                [% END -%]
+
+                <div class="container"><span class="label label-success">Comments</span>
+                    <div class="container">
+                        [% FOREACH comment IN comments -%]
+
+                        [% IF post.id==comment.post_id -%]
+                        <p>
+                            [% FOREACH user IN users -%][% IF user.id==comment.user_id -%]<span
+                                class="label label-default">[% user.name %]</span>[% END -%][% END -%]
+                            [% comment.comment %]
+                            [% IF c.user.id==1 || c.user.id==comment.user_id -%]
+                            <a href="[%c.uri_for(c.controller('comments').action_for('edit'),comment.id) %]">Edit</a> ||
+                            <a href="[%c.uri_for(c.controller('comments').action_for('delete'),comment.id) %]">Delete</a>
+                        </p>
+                        [% END -%]
+                        [% END -%]
+
+
+                        [% END -%]
+                    </div>
+                </div>
+
+
+            </div>
+            <form class="form-inline" method="post"
+                  action="[%c.uri_for(c.controller('comments').action_for('create_comment')) %]">
+                <div class="form-group">
+                    <input type="text" name="comment" class="form-control" placeholder="type your comment...">
+                    <input type="hidden" name="post_id" value=[% post.id %]>
+                    <input type="hidden" name="user_id" value=[% c.user.id %]>
+                </div>
+                <button type="submit" class="btn btn-success">Comment</button>
+            </form>
+
+
+            <hr>
+
+            [% END -%]
+
+        </div>
+
+    </div>
+
+    <div style="margin-left: 620px;">
+        <form method="post" class="" action="[%c.uri_for(c.controller('posts').action_for('create_post')) %]">
+            [% IF c.flash.error_msg -%]
+            <div class="alert alert-danger fade in">
+                [% c.flash.error_msg %]
+            </div>
+            [% END -%]
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" name="title">
+            </div>
+            <div class="form-group">
+                <label for="content">Content</label>
+                <textarea class="form-control" name="content"></textarea>
+            </div>
+            <button class="btn btn-primary">Add Post</button>
+        </form>
+    </div>
 </div>

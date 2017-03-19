@@ -87,26 +87,9 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("id");
 
-=head1 RELATIONS
 
-=head2 posts
-
-Type: has_many
-
-Related object: L<Blog::Schema::Result::Post>
-
-=cut
-
-__PACKAGE__->has_many(
-  "posts",
-  "Blog::Schema::Result::Post",
-  { "foreign.user_id" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-03-17 11:19:17
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:mnMzgAJADG7RL4hsKLdcZA
+# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-03-19 16:56:49
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ue1+dD9PdkvVGe5a/W1Btg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

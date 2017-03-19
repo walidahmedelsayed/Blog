@@ -31,14 +31,25 @@ sub base :Chained('/') :PathPart('users') :CaptureArgs(0) {
 }
 
 sub list :Chained('base') :PathPart("list") :Args(0) {
+
+
+
     my ($self, $c) = @_;
+    if($c->user->id == 1){
     $c->stash(users => [$c->model('DB::User')->all()]);
     $c->stash(template => "list_users.tt");
-}
+        }else
+        {
+         $c->response->redirect($c->uri_for($c->controller('logout')->action_for("index")));
+        }
+
+    }
+
+
 
 sub delete :Chained('base') :PathPart('delete') :Args(1) {
     my ($self, $c ,$id) = @_;
-if($id != 1){
+    if($id != 1){
     $c->stash->{resultset}->find($id)->delete;
     $c->response->redirect($c->uri_for($self->action_for("list")));
     }

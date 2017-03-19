@@ -1,4 +1,4 @@
-package Blog::View::list;
+package Blog::View::comment_form;
 use Moose;
 use namespace::autoclean;
 
@@ -7,12 +7,11 @@ extends 'Catalyst::View::TT';
 __PACKAGE__->config(
     TEMPLATE_EXTENSION => '.tt',
     render_die => 1,
-    WRAPPER => 'wrapper.tt'
 );
 
 =head1 NAME
 
-Blog::View::list - TT View for Blog
+Blog::View::comment_form - TT View for Blog
 
 =head1 DESCRIPTION
 

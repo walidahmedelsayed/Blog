@@ -1,12 +1,12 @@
 use utf8;
-package Blog::Schema::Result::Post;
+package Blog::Schema::Result::Comment;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-Blog::Schema::Result::Post
+Blog::Schema::Result::Comment
 
 =cut
 
@@ -30,11 +30,11 @@ extends 'DBIx::Class::Core';
 
 __PACKAGE__->load_components("InflateColumn::DateTime");
 
-=head1 TABLE: C<posts>
+=head1 TABLE: C<comments>
 
 =cut
 
-__PACKAGE__->table("posts");
+__PACKAGE__->table("comments");
 
 =head1 ACCESSORS
 
@@ -44,15 +44,19 @@ __PACKAGE__->table("posts");
   is_auto_increment: 1
   is_nullable: 0
 
-=head2 title
-
-  data_type: 'varchar'
-  is_nullable: 0
-  size: 255
-
-=head2 content
+=head2 comment
 
   data_type: 'text'
+  is_nullable: 0
+
+=head2 post_id
+
+  data_type: 'integer'
+  is_nullable: 0
+
+=head2 user_id
+
+  data_type: 'integer'
   is_nullable: 0
 
 =head2 created_at
@@ -62,20 +66,17 @@ __PACKAGE__->table("posts");
   default_value: current_timestamp
   is_nullable: 0
 
-=head2 user_id
-
-  data_type: 'integer'
-  is_nullable: 0
-
 =cut
 
 __PACKAGE__->add_columns(
   "id",
   { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
-  "title",
-  { data_type => "varchar", is_nullable => 0, size => 255 },
-  "content",
+  "comment",
   { data_type => "text", is_nullable => 0 },
+  "post_id",
+  { data_type => "integer", is_nullable => 0 },
+  "user_id",
+  { data_type => "integer", is_nullable => 0 },
   "created_at",
   {
     data_type => "timestamp",
@@ -83,8 +84,6 @@ __PACKAGE__->add_columns(
     default_value => \"current_timestamp",
     is_nullable => 0,
   },
-  "user_id",
-  { data_type => "integer", is_nullable => 0 },
 );
 
 =head1 PRIMARY KEY
@@ -101,7 +100,7 @@ __PACKAGE__->set_primary_key("id");
 
 
 # Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-03-19 16:56:48
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:LIhikSbB52kEI8ObPFj20A
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:r0ePui4vBUTfLZKgwOHnBQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
